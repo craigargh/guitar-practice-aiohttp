@@ -4,7 +4,7 @@ from typing import Dict, Any
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
-from guitarpractice.exercises.rhythm_sixteenth_notes import rhythm_sixteenth_notes
+from guitarpractice.exercises import get_exercise
 from guitarpractice.formatters import to_vextab
 
 router = web.RouteTableDef()
@@ -12,8 +12,8 @@ router = web.RouteTableDef()
 
 @router.get('/exercise')
 @aiohttp_jinja2.template("exercise.html")
-async def greet_user(request: web.Request) -> Dict[str, Any]:
-    exercise = rhythm_sixteenth_notes(level=1)
+async def exercise_view(request: web.Request) -> Dict[str, Any]:
+    exercise = get_exercise('rhythm-16th-notes', 'level_1')
 
     context = {
         'notes': to_vextab(exercise)

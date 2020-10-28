@@ -16,7 +16,7 @@ async def exercise_view(request: web.Request) -> Dict[str, Any]:
     exercise = get_exercise('rhythm-16th-notes', 'level_1')
 
     context = {
-        'notes': to_vextab(exercise)
+        'tab': to_vextab(exercise)
     }
 
     return context

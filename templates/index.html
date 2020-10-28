@@ -1,0 +1,19 @@
+<div>
+    Exercises:
+    <ul>
+        {% for exercise_name, exercise in exercises.items() %}
+
+            <li>
+                {{ exercise_name }}
+                <ul>
+                    {% for variation_key, variation_name in exercise['variations'].items() %}
+                        <li>
+                            <a href="/exercise/{{ exercise_name }}/{{ variation_key }}/">{{ variation_name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+        {% endfor %}
+    </ul>
+</div>

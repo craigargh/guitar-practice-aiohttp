@@ -4,13 +4,21 @@ from typing import Dict, Any
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
-from guitarpractice.exercises import get_exercise
+from guitarpractice.exercises import get_exercise, list_exercises
 from guitarpractice.formatters import to_vextab
 
 router = web.RouteTableDef()
 
 
-@router.get('/exercise/{exercise_id}/{variation}')
+@router.get('/')
+@aiohttp_jinja2.template("index.html")
+async def index(request: web.Request) -> Dict[str, Any]:
+    exercises = list_exercises().get('exercises')
+
+    return {'exercises': exercises}
+
+
+@router.get('/exercise/{exercise_id}/{variation}/')
 @aiohttp_jinja2.template("exercise.html")
 async def exercise_view(request: web.Request) -> Dict[str, Any]:
     exercise_id = request.match_info['exercise_id']

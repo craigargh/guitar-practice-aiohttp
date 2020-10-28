@@ -4,11 +4,11 @@
         {% for exercise_name, exercise in exercises.items() %}
 
             <li>
-                {{ exercise_name }}
+                {{ exercise['title'] }}
                 <ul>
-                    {% for variation_key, variation_name in exercise['variations'].items() %}
+                    {% for variation in exercise['variations'] %}
                         <li>
-                            <a href="/exercise/{{ exercise_name }}/{{ variation_key }}/">{{ variation_name }}</a>
+                            <a href="/exercise/{{ exercise_name }}/{{ variation['id'] }}/">{{ variation['title'] }}</a>
                         </li>
                     {% endfor %}
                 </ul>

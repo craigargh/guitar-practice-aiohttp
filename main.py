@@ -10,10 +10,13 @@ from guitarpractice.formatters import to_vextab
 router = web.RouteTableDef()
 
 
-@router.get('/exercise')
+@router.get('/exercise/{exercise_id}/{variation}')
 @aiohttp_jinja2.template("exercise.html")
 async def exercise_view(request: web.Request) -> Dict[str, Any]:
-    exercise = get_exercise('rhythm-16th-notes', 'level_1')
+    exercise_id = request.match_info['exercise_id']
+    variation = request.match_info['variation']
+
+    exercise = get_exercise(exercise_id, variation)
 
     context = {
         'tab': to_vextab(exercise)

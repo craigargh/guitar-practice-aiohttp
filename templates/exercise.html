@@ -4,12 +4,58 @@
 
 <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
 
+<script>
+
+    function str_pad_left(string, pad, length) {
+        return (new Array(length + 1).join(pad) + string).slice(-length);
+    }
+
+    let myTimer;
+
+    function clock() {
+        myTimer = setInterval(myClock, 1000);
+        let secondsRemaining = 120;
+
+        function myClock() {
+            --secondsRemaining;
+            let minutes = Math.floor(secondsRemaining / 60);
+            let seconds = secondsRemaining - minutes * 60
+
+            let timeRemaining = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
+
+            document.getElementById("timer").innerHTML = timeRemaining;
+            if (secondsRemaining === 0) {
+                clearInterval(myTimer);
+            }
+        }
+    }
+
+    let timerRunning = false;
+
+    function startTimer(){
+        if (! timerRunning) {
+            clock();
+            document.getElementById('timer').innerHTML = '02:00';
+            document.getElementById('timerButton').innerHTML = 'Reset timer';
+            timerRunning = true;
+        } else {
+            clearInterval(myTimer);
+            document.getElementById('timer').innerHTML = '02:00';
+            document.getElementById('timerButton').innerHTML = 'Start timer';
+            timerRunning = false;
+        }
+    }
+</script>
+
 <div class="vextab-auto"
-    width=800 scale=1.0 editor="false"
-    editor-width=800 editor-height=330>
+     width=800 scale=1.0 editor="false"
+     editor-width=800 editor-height=330>
     options space=12 font-size=14
     tab-stems=true tab-stem-direction=down
 
     {{ tab }}
 
 </div>
+
+<p id="timer">02:00</p>
+<button id="timerButton" onclick="startTimer()">Start timer</button>

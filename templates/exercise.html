@@ -24,7 +24,7 @@
             let timeRemaining = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
 
             document.getElementById("timer").innerHTML = timeRemaining;
-            if (secondsRemaining === 0) {
+            if (secondsRemaining <= 0) {
                 clearInterval(myTimer);
             }
         }

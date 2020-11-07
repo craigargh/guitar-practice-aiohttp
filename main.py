@@ -46,11 +46,15 @@ def fretboard_diagrams(exercise):
         min_fret = max(0, lowest_fret - 1)
         max_fret = highest_fret + 1
 
-        if min_fret == 0 and max_fret - min_fret < 5:
-            max_fret = 5
+        if max_fret - min_fret < 5:
+            max_fret = min_fret + 5
 
         bg_color = '#e7e7e7'
         color = '#606060'
+
+        height = 350
+        if max_fret - min_fret > 6:
+            height = 500
 
         style = {
             'marker': {
@@ -72,6 +76,7 @@ def fretboard_diagrams(exercise):
             'drawing': {
                 'background_color': bg_color,
                 'font_color': color,
+                'height': height,
             },
         }
 

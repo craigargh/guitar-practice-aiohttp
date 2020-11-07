@@ -1,7 +1,3 @@
-<a href="/">Home</a>
-
-<div id="boo"></div>
-
 <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
 
 <script>
@@ -47,21 +43,119 @@
     }
 </script>
 
-{% for diagram in diagrams %}
-    <span class="diagram">
-        {{ diagram | safe }}
-    </span>
-{% endfor %}
 
-<div class="vextab-auto"
-     width=800 scale=1.0 editor="false"
-     editor-width=800 editor-height=330>
-    options space=12 font-size=14
-    tab-stems=true tab-stem-direction=down
+<script>
+    setTimeout(function () {
+        const color = '#606060'
+        const bgColor = '#e7e7e7'
 
-    {{ tab }}
+        let tab = document.getElementById('tab').getElementsByTagName('path')
+        for (let index = 0; index < tab.length; index++) {
+            tab[index].setAttribute('stroke', color);
+            tab[index].setAttribute('fill', color);
+        }
+
+        let text = document.getElementById('tab').getElementsByTagName('text')
+        for (let index = 0; index < text.length; index++) {
+            text[index].setAttribute('fill', color);
+
+            if (text[index].innerHTML === 'vexflow.com') {
+                text[index].innerHTML = '';
+            }
+        }
+
+        let rect = document.getElementById('tab').getElementsByTagName('rect')
+        for (let index = 0; index < rect.length; index++) {
+            let rectangle = rect[index];
+            if (rectangle.getAttribute('fill') != 'rgba(0, 0, 0, 0)') {
+                rect[index].setAttribute('fill', color);
+                rect[index].setAttribute('stroke', color);
+            } else {
+                rectangle.setAttribute('fill', bgColor);
+            }
+        }
+    }, 100);
+
+</script>
+
+<style>
+    .nav {
+        color: #606060;
+        font-family: "Bowlby One SC", sans-serif;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .nav a:link, .nav a:visited, .nav a:hover, .nav a:active{
+        color: #606060;
+        text-decoration: none;
+    }
+
+    .content {
+        margin: auto;
+        width: 800px;
+    }
+
+    .diagrams {
+        text-align: center;
+    }
+
+    #timerButton {
+        background-color: #606060;
+        border: none;
+        color: #e7e7e7;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        width: 150px;
+    }
+
+    #timer {
+        margin-bottom: 10px;
+        font-size: 42px;
+        font-family: "Bowlby One SC", sans-serif;
+        color: #606060;
+        text-align: right;
+        width: 150px;
+    }
+
+    .stopwatch {
+        margin-top: 120px;
+        float: right;
+    }
+</style>
+
+<body style="background-color: #e7e7e7">
+<div class="content">
+    <div class="nav">
+        <a href="/">Home</a>
+    </div>
+
+    <div class="diagrams">
+        {% for diagram in diagrams %}
+            <span class="diagram">{{ diagram | safe }}</span>
+        {% endfor %}
+    </div>
+
+
+    <div class="tablature">
+        <div class="vextab-auto" id="tab"
+             width=800 scale=1.0 editor="false"
+             editor-width=800 editor-height=330>
+            options space=12 font-size=14
+            tab-stems=true tab-stem-direction=down
+
+            {{ tab }}
+        </div>
+    </div>
+
+    <div class="stopwatch">
+        <div id="timer">02:00</div>
+        <div>
+            <button id="timerButton" onclick="startTimer()">Start timer</button>
+        </div>
+    </div>
 
 </div>
-
-<p id="timer">02:00</p>
-<button id="timerButton" onclick="startTimer()">Start timer</button>
+</body>

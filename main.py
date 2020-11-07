@@ -44,13 +44,42 @@ def fretboard_diagrams(exercise):
         lowest_fret = min(position.fret for position in positions)
         highest_fret = max(position.fret for position in positions)
         min_fret = max(0, lowest_fret - 1)
-        max_fret = highest_fret + 1 if min_fret > 0 and highest_fret > 0 else 5
+        max_fret = highest_fret + 1
 
-        fb = fretboard.Fretboard(frets=(min_fret, max_fret), style={'marker': {'color': 'darkslategray'}})
+        if min_fret == 0 and max_fret - min_fret < 5:
+            max_fret = 5
+
+        bg_color = '#e7e7e7'
+        color = '#606060'
+
+        style = {
+            'marker': {
+                'color': color,
+                'border_color': color,
+            },
+            'string': {
+                'color': color,
+            },
+            'inlays': {
+                'color': color,
+            },
+            'fret': {
+                'color': color,
+            },
+            'nut': {
+                'color': color,
+            },
+            'drawing': {
+                'background_color': bg_color,
+                'font_color': color,
+            },
+        }
+
+        fb = fretboard.Fretboard(frets=(min_fret, max_fret), style=style)
 
         for position in positions:
             if position.highlighted:
-                styling = {'color': 'white'}
+                styling = {'color': bg_color}
             else:
                 styling = {}
 

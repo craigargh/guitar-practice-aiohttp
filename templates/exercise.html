@@ -32,8 +32,8 @@
 
     let timerRunning = false;
 
-    function startTimer(){
-        if (! timerRunning) {
+    function startTimer() {
+        if (!timerRunning) {
             clock();
             document.getElementById('timer').innerHTML = '02:00';
             document.getElementById('timerButton').innerHTML = 'Reset timer';
@@ -46,6 +46,12 @@
         }
     }
 </script>
+
+{% for diagram in diagrams %}
+    <div class="diagram">
+        {{ diagram | safe }}
+    </div>
+{% endfor %}
 
 <div class="vextab-auto"
      width=800 scale=1.0 editor="false"

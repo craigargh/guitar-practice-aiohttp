@@ -1,3 +1,4 @@
 -e git+git@github.com:craigargh/guitar-practice-core.git#egg=guitarpractice
 aiohttp
 aiohttp-jinja2
+fretboard

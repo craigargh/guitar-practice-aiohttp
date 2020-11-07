@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Dict, Any
 
 import aiohttp_jinja2
+import fretboard
 import jinja2
 from aiohttp import web
 from guitarpractice.exercises import get_exercise, list_exercises
@@ -25,12 +26,41 @@ async def exercise_view(request: web.Request) -> Dict[str, Any]:
     variation = request.match_info['variation']
 
     exercise = get_exercise(exercise_id, variation)
+    diagrams = fretboard_diagrams(exercise)
 
     context = {
-        'tab': to_vextab(exercise)
+        'tab': to_vextab(exercise),
+        'diagrams': diagrams,
     }
 
     return context
+
+
+def fretboard_diagrams(exercise):
+    diagrams = []
+
+    for shape in exercise.shapes:
+        positions = shape.positions
+        lowest_fret = min(position.fret for position in positions)
+        highest_fret = max(position.fret for position in positions)
+        min_fret = max(0, lowest_fret - 1)
+        max_fret = highest_fret + 1 if min_fret > 0 else 3
+
+        fb = fretboard.Fretboard(frets=(min_fret, max_fret), style={'marker': {'color': 'darkslategray'}})
+
+        for position in positions:
+            if position.highlighted:
+                styling = {'color': 'white'}
+            else:
+                styling = {}
+
+            string = 6 - position.string
+            fb.add_marker(string=string, fret=position.fret, **styling)
+
+        diagram_svg = str(fb.render().getvalue()).replace('<?xml version="1.0" encoding="utf-8" ?>', '')
+        diagrams.append(diagram_svg)
+
+    return diagrams
 
 
 async def init_app() -> web.Application:

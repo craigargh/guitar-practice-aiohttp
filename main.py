@@ -104,6 +104,10 @@ async def init_app() -> web.Application:
         app, loader=jinja2.FileSystemLoader(str(Path(__file__).parent / "templates"))
     )
 
+    static_dir = str(Path(__file__).parent / "static")
+    app.add_routes([web.static('/static', static_dir)])
+    router.static('/static', static_dir)
+
     return app
 
 

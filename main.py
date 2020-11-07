@@ -44,7 +44,7 @@ def fretboard_diagrams(exercise):
         lowest_fret = min(position.fret for position in positions)
         highest_fret = max(position.fret for position in positions)
         min_fret = max(0, lowest_fret - 1)
-        max_fret = highest_fret + 1 if min_fret > 0 else 3
+        max_fret = highest_fret + 1 if min_fret > 0 and highest_fret > 0 else 5
 
         fb = fretboard.Fretboard(frets=(min_fret, max_fret), style={'marker': {'color': 'darkslategray'}})
 

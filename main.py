@@ -41,8 +41,8 @@ def fretboard_diagrams(exercise):
 
     for shape in exercise.shapes:
         positions = shape.positions
-        lowest_fret = min(position.fret for position in positions)
-        highest_fret = max(position.fret for position in positions)
+        lowest_fret = min(position.fret for position in positions if position)
+        highest_fret = max(position.fret for position in positions if position)
         min_fret = max(0, lowest_fret - 1)
         max_fret = highest_fret + 1
 
@@ -83,6 +83,9 @@ def fretboard_diagrams(exercise):
         fb = fretboard.Fretboard(frets=(min_fret, max_fret), style=style)
 
         for position in positions:
+            if position is None:
+                continue
+
             if position.highlighted:
                 styling = {'color': bg_color}
             else:

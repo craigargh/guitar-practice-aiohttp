@@ -20,7 +20,16 @@
             <ul>
                 {% for note_finder in note_finders %}
                     <li>
-                        <a href="/note-finder/?strings={{ note_finder['query_string'] }}">{{ note_finder['name'] }}</a>
+                        {{ note_finder['name'] }}
+                        <ul>
+                            {% for speed in ['slow', 'medium', 'fast'] %}
+                                <li>
+                                    <a href="/note-finder/?strings={{ note_finder['query_string'] }}&speed={{ speed }}">
+                                        {{ speed }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </li>
                 {% endfor %}
             </ul>

@@ -45,9 +45,17 @@ async def exercise_view(request: web.Request) -> Dict[str, Any]:
 @aiohttp_jinja2.template("note_finder.html")
 async def note_finder_view(request: web.Request) -> Dict[str, Any]:
     strings = request.query.get('strings', '6').split(',')
+    speed = request.query.get('speed', 'slow')
+
+    interval_map = {
+        'slow': 3000,
+        'medium': 2000,
+        'fast': 1500,
+    }
 
     return {
-        'notes': note_finder(strings)
+        'notes': note_finder(strings),
+        'speed': interval_map[speed],
     }
 
 

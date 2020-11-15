@@ -11,11 +11,12 @@
     let note_index;
 
     function clock() {
-        myTimer = setInterval(myClock, 2000);
-        let secondsRemaining = 120;
+        let interval = 2000;
+        myTimer = setInterval(myClock, interval);
+        let millisecond_remaining = 120000;
 
         function myClock() {
-            secondsRemaining -= 2;
+            millisecond_remaining -= interval;
 
             note_index++;
             let visible_note = document.getElementsByClassName('note')
@@ -26,7 +27,7 @@
             notes[note_index].setAttribute('class', 'note');
 
 
-            if (secondsRemaining <= 0) {
+            if (millisecond_remaining <= 0) {
                 clearInterval(myTimer);
                 let visible_note = document.getElementsByClassName('note')
                 visible_note[0].innerHTML = 'end'

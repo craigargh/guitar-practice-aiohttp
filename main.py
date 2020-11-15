@@ -2,11 +2,12 @@ from pathlib import Path
 from typing import Dict, Any
 
 import aiohttp_jinja2
-import fretboard
 import jinja2
 from aiohttp import web
 from guitarpractice.exercises import get_exercise, list_exercises
 from guitarpractice.formatters import to_vextab
+
+from exercises import fretboard_diagrams, note_finder, note_finder_variations
 
 router = web.RouteTableDef()
 
@@ -15,8 +16,12 @@ router = web.RouteTableDef()
 @aiohttp_jinja2.template("index.html")
 async def index(request: web.Request) -> Dict[str, Any]:
     exercises = list_exercises().get('exercises')
+    note_finders = note_finder_variations()
 
-    return {'exercises': exercises}
+    return {
+        'exercises': exercises,
+        'note_finders': note_finders,
+    }
 
 
 @router.get('/exercise/{exercise_id}/{variation}/')
@@ -36,68 +41,14 @@ async def exercise_view(request: web.Request) -> Dict[str, Any]:
     return context
 
 
-def fretboard_diagrams(exercise):
-    diagrams = []
+@router.get('/note-finder/')
+@aiohttp_jinja2.template("note_finder.html")
+async def note_finder_view(request: web.Request) -> Dict[str, Any]:
+    strings = request.query.get('strings', '6').split(',')
 
-    for shape in exercise.shapes:
-        positions = shape.positions
-        lowest_fret = min(position.fret for position in positions if position)
-        highest_fret = max(position.fret for position in positions if position)
-        min_fret = max(0, lowest_fret - 1)
-        max_fret = highest_fret + 1
-
-        if max_fret - min_fret < 5:
-            max_fret = min_fret + 5
-
-        bg_color = '#e7e7e7'
-        color = '#606060'
-
-        height = 350
-        if max_fret - min_fret > 6:
-            height = 500
-
-        style = {
-            'marker': {
-                'color': color,
-                'border_color': color,
-            },
-            'string': {
-                'color': color,
-            },
-            'inlays': {
-                'color': color,
-            },
-            'fret': {
-                'color': color,
-            },
-            'nut': {
-                'color': color,
-            },
-            'drawing': {
-                'background_color': bg_color,
-                'font_color': color,
-                'height': height,
-            },
-        }
-
-        fb = fretboard.Fretboard(frets=(min_fret, max_fret), style=style)
-
-        for position in positions:
-            if position is None:
-                continue
-
-            if position.highlighted:
-                styling = {'color': bg_color}
-            else:
-                styling = {}
-
-            string = 6 - position.string
-            fb.add_marker(string=string, fret=position.fret, **styling)
-
-        diagram_svg = str(fb.render().getvalue()).replace('<?xml version="1.0" encoding="utf-8" ?>', '')
-        diagrams.append(diagram_svg)
-
-    return diagrams
+    return {
+        'notes': note_finder(strings)
+    }
 
 
 async def init_app() -> web.Application:

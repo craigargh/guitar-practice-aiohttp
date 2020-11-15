@@ -1,40 +1,105 @@
-<div>
-    Exercises:
-    <ul>
-        {% for exercise_name, exercise in exercises.items() %}
+<style>
+    .content {
+        margin: auto;
+        width: 800px;
+        font-family: "Bowlby One SC", sans-serif;
+    }
 
-            <li>
-                {{ exercise['title'] }}
-                <ul>
-                    {% for variation in exercise['variations'] %}
-                        <li>
-                            <a href="/exercise/{{ exercise_name }}/{{ variation['id'] }}/">{{ variation['title'] }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </li>
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+    }
 
-        {% endfor %}
-        <li>
-            Note finder
+    .active, .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+
+    .accordion:after {
+        content: '\02795'; /* Unicode character for "plus" sign (+) */
+        font-size: 13px;
+        color: #777;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .active:after {
+        content: "\2796"; /* Unicode character for "minus" sign (-) */
+    }
+</style>
+
+
+<div class="content">
+    {% for exercise_name, exercise in exercises.items() %}
+
+        <button class="accordion">{{ exercise['title'] }}</button>
+        <div class="panel">
+
             <ul>
-                {% for note_finder in note_finders %}
+                {% for variation in exercise['variations'] %}
                     <li>
-                        {{ note_finder['name'] }}
-                        <ul>
-                            {% for speed in ['slow', 'medium', 'fast'] %}
-                                <li>
-                                    <a href="/note-finder/?strings={{ note_finder['query_string'] }}&speed={{ speed }}">
-                                        {{ speed }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                        <a href="/exercise/{{ exercise_name }}/{{ variation['id'] }}/">{{ variation['title'] }}</a>
                     </li>
                 {% endfor %}
             </ul>
-        </li>
-    </ul>
+        </div>
+
+
+    {% endfor %}
+
+    <button class="accordion">Note Finder</button>
+    <div class="panel">
+        <ul>
+            {% for note_finder in note_finders %}
+                <li>
+                    {{ note_finder['name'] }}
+                    <ul>
+                        {% for speed in ['slow', 'medium', 'fast'] %}
+                            <li>
+                                <a href="/note-finder/?strings={{ note_finder['query_string'] }}&speed={{ speed }}">
+                                    {{ speed }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
 
 </div>
+
+
+<script>
+
+
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>

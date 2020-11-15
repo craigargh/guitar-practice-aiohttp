@@ -73,7 +73,7 @@ def note_finder(strings):
     notes = []
     prev_note = None
 
-    for _ in range(65):
+    for _ in range(120):
         chosen_note = random.choice(note_choices)
         while chosen_note == prev_note:
             chosen_note = random.choice(note_choices)

@@ -32,12 +32,12 @@
         if (!timerRunning) {
             clock();
             document.getElementById('timer').innerHTML = '02:00';
-            document.getElementById('timerButton').innerHTML = 'Reset timer';
+            document.getElementById('timerButton').innerHTML = 'Reset';
             timerRunning = true;
         } else {
             clearInterval(myTimer);
             document.getElementById('timer').innerHTML = '02:00';
-            document.getElementById('timerButton').innerHTML = 'Start timer';
+            document.getElementById('timerButton').innerHTML = 'Start';
             timerRunning = false;
         }
     }
@@ -155,7 +155,7 @@
     <div class="stopwatch">
         <div id="timer">02:00</div>
         <div>
-            <button id="timerButton" onclick="startTimer()">Start timer</button>
+            <button id="timerButton" onclick="startTimer()">Start</button>
         </div>
     </div>
 

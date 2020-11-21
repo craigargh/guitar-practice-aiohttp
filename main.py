@@ -1,3 +1,4 @@
+from itertools import zip_longest
 from pathlib import Path
 from typing import Dict, Any
 
@@ -32,6 +33,18 @@ async def exercise_view(request: web.Request) -> Dict[str, Any]:
 
     exercise = get_exercise(exercise_id, variation)
     diagrams = fretboard_diagrams(exercise)
+    diagram_labels = []
+
+    if exercise.shape_labels:
+        diagram_labels = [
+            shape.name
+            for shape in exercise.shapes
+        ]
+
+    diagrams = [
+        {'shape': shape, 'label': label}
+        for shape, label in zip_longest(diagrams, diagram_labels)
+    ]
 
     context = {
         'tab': to_vextab(exercise),

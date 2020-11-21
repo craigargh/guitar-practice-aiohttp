@@ -79,13 +79,17 @@
 </script>
 
 <style>
+    body {
+        font-family: "Bowlby One SC", sans-serif;
+    }
+
     .nav {
         color: #606060;
-        font-family: "Bowlby One SC", sans-serif;
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    .nav a:link, .nav a:visited, .nav a:hover, .nav a:active{
+
+    .nav a:link, .nav a:visited, .nav a:hover, .nav a:active {
         color: #606060;
         text-decoration: none;
     }
@@ -97,6 +101,10 @@
 
     .diagrams {
         text-align: center;
+    }
+
+    .diagram {
+        display: inline-block;
     }
 
     #timerButton {
@@ -114,7 +122,6 @@
     #timer {
         margin-bottom: 10px;
         font-size: 42px;
-        font-family: "Bowlby One SC", sans-serif;
         color: #606060;
         text-align: center;
         width: 150px;
@@ -136,7 +143,12 @@
 
     <div class="diagrams">
         {% for diagram in diagrams %}
-            <span class="diagram">{{ diagram | safe }}</span>
+            <div class="diagram">
+            {% if diagram['label'] %}
+                <div>{{ diagram['label'] }}</div>
+            {% endif %}
+                <div>{{ diagram['shape'] | safe }}</div>
+            </div>
         {% endfor %}
     </div>
 

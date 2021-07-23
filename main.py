@@ -61,6 +61,7 @@ async def note_finder_view(request: web.Request) -> Dict[str, Any]:
     speed = request.query.get('speed', 'slow')
 
     interval_map = {
+        'slowest': 5000,
         'slow': 3000,
         'medium': 2000,
         'fast': 1500,

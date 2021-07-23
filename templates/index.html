@@ -68,7 +68,7 @@
                 <li>
                     {{ note_finder['name'] }}
                     <ul>
-                        {% for speed in ['slow', 'medium', 'fast'] %}
+                        {% for speed in ['slowest', 'slow', 'medium', 'fast'] %}
                             <li>
                                 <a href="/note-finder/?strings={{ note_finder['query_string'] }}&speed={{ speed }}">
                                     {{ speed }}

@@ -59,6 +59,7 @@ async def exercise_view(request: web.Request) -> Dict[str, Any]:
 async def note_finder_view(request: web.Request) -> Dict[str, Any]:
     strings = request.query.get('strings', '6').split(',')
     speed = request.query.get('speed', 'slow')
+    duration = request.query.get('mins', '2')
 
     interval_map = {
         'slowest': 5000,
@@ -66,10 +67,14 @@ async def note_finder_view(request: web.Request) -> Dict[str, Any]:
         'medium': 2000,
         'fast': 1500,
     }
+    tick_speed = interval_map[speed]
+    duration_ms = (int(duration)) * 60000
+    qty = int(duration_ms / tick_speed) + 1
 
     return {
-        'notes': note_finder(strings),
-        'speed': interval_map[speed],
+        'notes': note_finder(strings, qty),
+        'speed': tick_speed,
+        'duration': duration_ms,
     }
 
 

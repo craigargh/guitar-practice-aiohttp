@@ -67,13 +67,13 @@ def fretboard_diagrams(exercise):
     return diagrams
 
 
-def note_finder(strings):
+def note_finder(strings, qty):
     note_choices = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
 
     notes = []
     prev_note = None
 
-    for _ in range(120):
+    for _ in range(qty):
         chosen_note = random.choice(note_choices)
         while chosen_note == prev_note:
             chosen_note = random.choice(note_choices)

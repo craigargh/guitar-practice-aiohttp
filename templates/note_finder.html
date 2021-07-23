@@ -10,10 +10,18 @@
     let notes;
     let note_index;
 
+    function millisecondsToMins(ms){
+        let total_seconds = ms / 1000;
+        let mins = Math.floor(total_seconds / 60);
+        let secs = total_seconds - (mins * 60);
+
+        return str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
+    }
+
     function clock() {
         let interval = {{ speed }};
         myTimer = setInterval(myClock, interval);
-        let millisecond_remaining = 120000;
+        let millisecond_remaining = {{ duration }};
 
         function myClock() {
             millisecond_remaining -= interval;
@@ -26,6 +34,7 @@
 
             notes[note_index].setAttribute('class', 'note');
 
+            document.getElementById("timer").innerHTML = millisecondsToMins(millisecond_remaining);
 
             if (millisecond_remaining <= 0) {
                 clearInterval(myTimer);
@@ -50,6 +59,7 @@
         } else {
             clearInterval(myTimer);
             document.getElementById('timerButton').innerHTML = 'Start';
+            document.getElementById('timer').innerHTML = '{{ duration // 60000 }}:00';
             timerRunning = false;
 
             let visible_note = document.getElementsByClassName('note')
@@ -138,6 +148,7 @@
 
 
     <div class="stopwatch">
+        <div id="timer">{{ duration // 60000 }}:00</div>
         <div>
             <button id="timerButton" onclick="startTimer()">Start</button>
         </div>

@@ -8,7 +8,7 @@ from aiohttp import web
 from guitarpractice.exercises import get_exercise, list_exercises
 from guitarpractice.formatters import to_vextab
 
-from exercises import fretboard_diagrams, note_finder, note_finder_variations
+from exercises import fretboard_diagrams, note_finder, note_finder_variations, note_on_each_string
 
 router = web.RouteTableDef()
 
@@ -63,10 +63,11 @@ async def note_finder_view(request: web.Request) -> Dict[str, Any]:
     sharps = request.query.get('sharps', 'false')
 
     interval_map = {
-        'slowest': 5000,
-        'slow': 3000,
-        'medium': 2000,
-        'fast': 1500,
+        'slowest': 10000,
+        'slow': 5000,
+        'medium': 3000,
+        'fast': 2000,
+        'fastest': 1500,
     }
     tick_speed = interval_map[speed]
     duration_ms = (int(duration)) * 60000
@@ -78,6 +79,18 @@ async def note_finder_view(request: web.Request) -> Dict[str, Any]:
         'notes': note_finder(strings, qty, include_sharps),
         'speed': tick_speed,
         'duration': duration_ms,
+    }
+
+
+@router.get('/note-on-each-string/')
+@aiohttp_jinja2.template("note_on_each_string.html")
+async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
+    sharps = request.query.get('sharps', 'false')
+    include_sharps = sharps != 'false'
+
+    notes = note_on_each_string(include_sharps)
+    return {
+        'notes': notes,
     }
 
 

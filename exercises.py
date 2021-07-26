@@ -68,7 +68,7 @@ def fretboard_diagrams(exercise):
 
 
 def note_finder(strings, qty, sharps):
-    note_choices = ['A', 'B', 'C', 'D', 'E', 'F', 'G',]
+    note_choices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', ]
     if sharps:
         note_choices.extend(['A#', 'C#', 'D#', 'F#', 'G#'])
 
@@ -85,6 +85,16 @@ def note_finder(strings, qty, sharps):
         prev_note = chosen_note
 
     return notes
+
+
+def note_on_each_string(sharps):
+    note_choices = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+    if sharps:
+        note_choices.extend(['A#', 'C#', 'D#', 'F#', 'G#'])
+
+    random.shuffle(note_choices)
+
+    return note_choices
 
 
 def note_finder_variations():

@@ -1,0 +1,79 @@
+
+<style>
+    .nav {
+        color: #606060;
+        font-family: "Bowlby One SC", sans-serif;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .nav a:link, .nav a:visited, .nav a:hover, .nav a:active {
+        color: #606060;
+        text-decoration: none;
+    }
+
+    .content {
+        margin: auto;
+        width: 800px;
+    }
+
+    #timerButton {
+        background-color: #606060;
+        border: none;
+        color: #e7e7e7;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        width: 150px;
+    }
+
+    #timer {
+        margin-bottom: 10px;
+        font-size: 42px;
+        font-family: "Bowlby One SC", sans-serif;
+        color: #606060;
+        text-align: center;
+        width: 150px;
+    }
+
+    .stopwatch {
+        margin-top: 120px;
+        float: right;
+    }
+
+    .note {
+        font-family: "Bowlby One SC", sans-serif;
+        font-size: 72px;
+        color: #606060;
+    }
+
+    .hidden-note {
+        display: none;
+    }
+
+    #note-container{
+        height: 80px;
+        text-align: center;
+        padding-top: 80px;
+    }
+</style>
+
+<title>Guitar Exercise</title>
+
+<body style="background-color: #e7e7e7">
+<div class="content">
+    <div class="nav">
+        <a href="/">home</a>
+    </div>
+
+    <div id="note-container">
+        {% for note in notes %}
+            <div class="note">{{ note }}</div>
+        {% endfor %}
+    </div>
+
+
+</div>
+</body>

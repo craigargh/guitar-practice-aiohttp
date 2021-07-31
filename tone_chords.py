@@ -52,5 +52,7 @@ tone_chords = {
     'ninth': {},
     'aug7': {},
     'augm7': {},
-    'minMaj7': {},
+    'minMaj7': {
+        'III': 'minMaj7',
+    },
 }

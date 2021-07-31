@@ -1,0 +1,75 @@
+<style>
+    .nav {
+        color: #606060;
+        font-family: "Bowlby One SC", sans-serif;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .nav a:link, .nav a:visited, .nav a:hover, .nav a:active {
+        color: #606060;
+        text-decoration: none;
+    }
+
+    .content {
+        margin: auto;
+        width: 800px;
+    }
+
+    table {
+        text-align: center;
+    }
+
+    #table-container {
+        padding-top: 50px;
+    }
+
+    .chord {
+        font-family: "Bowlby One SC", sans-serif;
+        font-size: 24px;
+        color: #606060;
+        padding-right: 40px;
+        padding-bottom: 20px;
+        width: 60px;
+    }
+
+    .bold {
+        font-weight: bold;
+        text-align: right;
+    }
+</style>
+
+<title>Guitar Exercise</title>
+
+<body style="background-color: #e7e7e7">
+<div class="content">
+    <div class="nav">
+        <a href="/">home</a>
+    </div>
+
+    <div id="table-container">
+        <table>
+            <tr>
+                {% for header in table[0] %}
+                    <th class="chord">{{ header }}</th>
+                {% endfor %}
+            </tr>
+
+            {% for row in table[1:] %}
+                <tr>
+                    {% for column in row %}
+                        {% if loop.index == 1 %}
+                            <td class="chord bold">{{ column }}</td>
+                        {% else %}
+                            <td class="chord">{{ column }}</td>
+                        {% endif %}
+
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+</div>
+</body>

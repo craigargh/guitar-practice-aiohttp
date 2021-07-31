@@ -9,6 +9,7 @@ from guitarpractice.exercises import get_exercise, list_exercises
 from guitarpractice.formatters import to_vextab
 
 from exercises import fretboard_diagrams, note_finder, note_finder_variations, note_on_each_string
+from tone_chords import tone_chords
 
 router = web.RouteTableDef()
 
@@ -91,6 +92,38 @@ async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
     notes = note_on_each_string(include_sharps)
     return {
         'notes': notes,
+    }
+
+
+@router.get('/scale-tone-chords/')
+@aiohttp_jinja2.template("scale_tone_chords.html")
+async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
+    intervals = [
+        'I',
+        'II',
+        'III',
+        'IV',
+        'V',
+        'VI',
+        'VII',
+    ]
+
+    table = [[''] + intervals]
+
+    for tonality, chords in tone_chords.items():
+        if len(chords.keys()) == 0:
+            continue
+
+        row = [tonality]
+
+        for interval in intervals:
+            chord = chords.get(interval, "-")
+            row.append(chord)
+
+        table.append(row)
+
+    return {
+        'table': table,
     }
 
 

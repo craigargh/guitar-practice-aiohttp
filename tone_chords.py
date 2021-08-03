@@ -2,6 +2,7 @@
 # suspended chords https://www.youtube.com/watch?v=qu49nYaBfdM
 # augmented chords https://www.youtube.com/watch?v=wNWDjhDo2Ak
 # minor maj7 chords https://www.youtube.com/watch?v=Zr5hjIECFlk
+# shell chords https://www.youtube.com/watch?v=tDhc2PEXLyw
 
 tone_chords = {
     'major': {
@@ -55,4 +56,5 @@ tone_chords = {
     'minMaj7': {
         'III': 'minMaj7',
     },
+    'sixth': {},
 }

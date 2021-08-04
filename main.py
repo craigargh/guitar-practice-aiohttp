@@ -9,7 +9,7 @@ from guitarpractice.exercises import get_exercise, list_exercises
 from guitarpractice.formatters import to_vextab
 
 from exercises import fretboard_diagrams, note_finder, note_finder_variations, note_on_each_string
-from tone_chords import tone_chords
+from tone_chords import list_chord_shapes, build_tone_chords
 
 router = web.RouteTableDef()
 
@@ -98,6 +98,15 @@ async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
 @router.get('/scale-tone-chords/')
 @aiohttp_jinja2.template("scale_tone_chords.html")
 async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
+    key = request.query.get('key', 'C')
+    scale = request.query.get('scale', 'major')
+    shape_notes = request.query.get('shape-notes', 'false')
+
+    if 'sharp' in key:
+        key = key.replace('sharp', '#')
+
+    shape_notes = shape_notes != 'false'
+
     intervals = [
         'I',
         'II',
@@ -110,7 +119,7 @@ async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
 
     table = [[''] + intervals]
 
-    for tonality, chords in tone_chords.items():
+    for tonality, chords in build_tone_chords(key, scale).items():
         if len(chords.keys()) == 0:
             continue
 
@@ -124,6 +133,7 @@ async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
 
     return {
         'table': table,
+        'chord_titles': list_chord_shapes(key, scale, shape_notes)
     }
 
 

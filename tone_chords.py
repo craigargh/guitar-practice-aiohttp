@@ -133,7 +133,6 @@ def build_tone_chords(key, scale):
 
 def list_chord_shapes(key, scale, shape_notes):
     chords = []
-    print(shape_notes)
 
     tone_chord_source = build_tone_chords(key, scale) if shape_notes else tone_chords
 

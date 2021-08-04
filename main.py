@@ -7,10 +7,10 @@ import jinja2
 from aiohttp import web
 from guitarpractice.exercises import get_exercise, list_exercises
 from guitarpractice.formatters import to_vextab
+from guitarpractice.shapes.chord import list_movable_chord_shapes, list_open_chords
 
 from exercises import fretboard_diagrams, note_finder, note_finder_variations, note_on_each_string, make_diagram
 from tone_chords import list_chord_shapes, build_tone_chords
-from guitarpractice.shapes.chord import list_movable_chord_shapes
 
 router = web.RouteTableDef()
 
@@ -132,15 +132,32 @@ async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
 
         table.append(row)
 
-    shape_names = list_chord_shapes(key, scale, shape_notes)
+    open_shape_names = list_chord_shapes(key, scale, True)
 
     chord_shapes = {}
-    for shape_name in shape_names:
+    for open_shape_name in open_shape_names:
+        split_index = 2 if '#' in open_shape_name else 1
+        note_name = open_shape_name[:split_index]
+        tonality = open_shape_name[split_index:]
+
+        diagrams = [
+            make_diagram(movable_shape)
+            for movable_shape in list_open_chords(note_name, tonality)
+        ]
+
+        if chord_shapes.get(tonality) is None:
+            chord_shapes[tonality] = []
+
+        chord_shapes[tonality].extend(diagrams)
+
+    movable_shape_names = list_chord_shapes(key, scale, False)
+
+    for shape_name in movable_shape_names:
         diagrams = [
             make_diagram(movable_shape)
             for movable_shape in list_movable_chord_shapes(shape_name)
         ]
-        chord_shapes[shape_name] = diagrams
+        chord_shapes[shape_name].extend(diagrams)
 
     return {
         'table': table,

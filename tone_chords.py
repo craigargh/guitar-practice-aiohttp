@@ -23,6 +23,13 @@ tone_chords = {
         'VI': 'min7',
         'VII': 'min7b5',
     },
+    'ninth': {
+        'I': 'maj9',
+        'II': 'min9',
+        'IV': '7b9',
+        'V': '9',
+        'VI': 'min9',
+    },
     'add9': {
         'I': 'add9',
         'II': 'madd9',
@@ -46,15 +53,12 @@ tone_chords = {
         'V': 'sus4',
         'VI': 'sus4',
     },
-    'aug': {
-        'I': 'aug',
-        'V': 'aug',
+    'sixth': {
+        'I': '6',
+        'II': 'm6',
+        'III': 'minb6',
+        'IV': '6',
+        'V': '6',
+        'VI': 'minb6',
     },
-    'ninth': {},
-    'aug7': {},
-    'augm7': {},
-    'minMaj7': {
-        'III': 'minMaj7',
-    },
-    'sixth': {},
 }

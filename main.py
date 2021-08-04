@@ -8,8 +8,9 @@ from aiohttp import web
 from guitarpractice.exercises import get_exercise, list_exercises
 from guitarpractice.formatters import to_vextab
 
-from exercises import fretboard_diagrams, note_finder, note_finder_variations, note_on_each_string
+from exercises import fretboard_diagrams, note_finder, note_finder_variations, note_on_each_string, make_diagram
 from tone_chords import list_chord_shapes, build_tone_chords
+from guitarpractice.shapes.chord import list_movable_chord_shapes
 
 router = web.RouteTableDef()
 
@@ -131,9 +132,19 @@ async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
 
         table.append(row)
 
+    shape_names = list_chord_shapes(key, scale, shape_notes)
+
+    chord_shapes = {}
+    for shape_name in shape_names:
+        diagrams = [
+            make_diagram(movable_shape)
+            for movable_shape in list_movable_chord_shapes(shape_name)
+        ]
+        chord_shapes[shape_name] = diagrams
+
     return {
         'table': table,
-        'chord_titles': list_chord_shapes(key, scale, shape_notes)
+        'chord_shapes': chord_shapes
     }
 
 

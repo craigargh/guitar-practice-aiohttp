@@ -42,6 +42,14 @@
         padding-top: 40px;
         text-align: center;
     }
+
+    .diagrams {
+        text-align: center;
+    }
+
+    .diagram {
+        display: inline-block;
+    }
 </style>
 
 <title>Guitar Exercise</title>
@@ -76,8 +84,17 @@
     </div>
 
     <div class="shapes-container">
-        {% for chord_title in chord_titles %}
-            <h2>{{ chord_title }}</h2>
+        {% for shape_name, shapes in chord_shapes.items() %}
+            <h2>{{ shape_name }}</h2>
+
+            <div class="diagrams">
+                {% for diagram in shapes %}
+                    <div class="diagram">
+                        <div>{{ diagram | safe }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+
         {% endfor %}
     </div>
 

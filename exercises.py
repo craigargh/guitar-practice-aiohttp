@@ -7,64 +7,68 @@ def fretboard_diagrams(exercise):
     diagrams = []
 
     for shape in exercise.shapes:
-        positions = shape.positions
-        lowest_fret = min(position.fret for position in positions if position)
-        highest_fret = max(position.fret for position in positions if position)
-        min_fret = max(0, lowest_fret - 1)
-        max_fret = highest_fret + 1
-
-        if max_fret - min_fret < 5:
-            max_fret = min_fret + 5
-
-        bg_color = '#e7e7e7'
-        color = '#606060'
-
-        height = 350
-        if max_fret - min_fret > 6:
-            height = 500
-
-        style = {
-            'marker': {
-                'color': color,
-                'border_color': color,
-            },
-            'string': {
-                'color': color,
-            },
-            'inlays': {
-                'color': color,
-            },
-            'fret': {
-                'color': color,
-            },
-            'nut': {
-                'color': color,
-            },
-            'drawing': {
-                'background_color': bg_color,
-                'font_color': color,
-                'height': height,
-            },
-        }
-
-        fb = fretboard.Fretboard(frets=(min_fret, max_fret), style=style)
-
-        for position in positions:
-            if position is None:
-                continue
-
-            if position.highlighted:
-                styling = {'color': bg_color}
-            else:
-                styling = {}
-
-            string = 6 - position.string
-            fb.add_marker(string=string, fret=position.fret, **styling)
-
-        diagram_svg = str(fb.render().getvalue()).replace('<?xml version="1.0" encoding="utf-8" ?>', '')
-        diagrams.append(diagram_svg)
-
+        diagram = make_diagram(shape)
+        diagrams.append(diagram)
     return diagrams
+
+
+def make_diagram(shape):
+    positions = shape.positions
+    lowest_fret = min(position.fret for position in positions if position)
+    highest_fret = max(position.fret for position in positions if position)
+    min_fret = max(0, lowest_fret - 1)
+    max_fret = highest_fret + 1
+
+    if max_fret - min_fret < 5:
+        max_fret = min_fret + 5
+
+    bg_color = '#e7e7e7'
+    color = '#606060'
+
+    height = 350
+    if max_fret - min_fret > 6:
+        height = 500
+
+    style = {
+        'marker': {
+            'color': color,
+            'border_color': color,
+        },
+        'string': {
+            'color': color,
+        },
+        'inlays': {
+            'color': color,
+        },
+        'fret': {
+            'color': color,
+        },
+        'nut': {
+            'color': color,
+        },
+        'drawing': {
+            'background_color': bg_color,
+            'font_color': color,
+            'height': height,
+        },
+    }
+
+    fb = fretboard.Fretboard(frets=(min_fret, max_fret), style=style)
+
+    for position in positions:
+        if position is None:
+            continue
+
+        if position.highlighted:
+            styling = {'color': bg_color}
+        else:
+            styling = {}
+
+        string = 6 - position.string
+        fb.add_marker(string=string, fret=position.fret, **styling)
+
+    diagram_svg = str(fb.render().getvalue()).replace('<?xml version="1.0" encoding="utf-8" ?>', '')
+    return diagram_svg
 
 
 def note_finder(strings, qty, sharps):

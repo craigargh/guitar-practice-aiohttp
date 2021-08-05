@@ -3,6 +3,7 @@
 # augmented chords https://www.youtube.com/watch?v=wNWDjhDo2Ak
 # minor maj7 chords https://www.youtube.com/watch?v=Zr5hjIECFlk
 # shell chords https://www.youtube.com/watch?v=tDhc2PEXLyw
+# All math rock chords https://www.youtube.com/watch?v=8E-Ajb7ABdE
 from itertools import cycle
 
 tone_chords = {

@@ -63,13 +63,13 @@ tone_chords = {
     },
     'eleventh': {
         'II': 'min11',
-        'III': 'm7(11)',
+        'III': 'min11',
         'VI': 'min11',
     },
     '13th': {
         'I': 'maj13',
         'II': 'min13',
-        'IV': 'maj7(13)',
+        'IV': 'maj13',
         'V': '13',
     },
     '7sus4': {

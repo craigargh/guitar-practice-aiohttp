@@ -4,7 +4,6 @@
 # minor maj7 chords https://www.youtube.com/watch?v=Zr5hjIECFlk
 # shell chords https://www.youtube.com/watch?v=tDhc2PEXLyw
 # All math rock chords https://www.youtube.com/watch?v=8E-Ajb7ABdE
-from itertools import cycle
 
 tone_chords = {
     'major': {
@@ -25,22 +24,6 @@ tone_chords = {
         'VI': 'min7',
         'VII': 'min7b5',
     },
-    'ninth': {
-        'I': 'maj9',
-        'II': 'min9',
-        'IV': '7b9',
-        'V': '9',
-        'VI': 'min9',
-    },
-    'add9': {
-        'I': 'add9',
-        'II': 'madd9',
-        'III': 'mb9',
-        'IV': 'add9',
-        'V': 'add9',
-        'VI': 'madd9',
-        'VII': 'dimb9',
-    },
     'sus2': {
         'I': 'sus2',
         'II': 'sus2',
@@ -55,13 +38,65 @@ tone_chords = {
         'V': 'sus4',
         'VI': 'sus4',
     },
+    'add9': {
+        'I': 'add9',
+        'II': 'madd9',
+        'III': 'mb9',
+        'IV': 'add9',
+        'V': 'add9',
+        'VI': 'madd9',
+        'VII': 'dimb9',
+    },
+    'add11': {
+        'II': 'madd11',
+        'III': 'madd11',
+        'VI': 'madd11',
+    },
+    'ninth': {
+        'I': 'maj9',
+        'II': 'min9',
+        'III': 'min7b9',
+        'IV': 'maj9',
+        'V': '9',
+        'VI': 'min9',
+        'VII': 'm7b5b9',
+    },
+    'eleventh': {
+        'II': 'min11',
+        'III': 'm7(11)',
+        'VI': 'min11',
+    },
+    '13th': {
+        'I': 'maj13',
+        'II': 'min13',
+        'IV': 'maj7(13)',
+        'V': '13',
+    },
+    '7sus4': {
+        'II': '7sus4',
+        'III': '7sus4',
+        'V': '7sus4',
+        'VI': '7sus4',
+    },
     'sixth': {
         'I': '6',
-        'II': 'm6',
+        'II': 'min6',
         'III': 'minb6',
         'IV': '6',
         'V': '6',
         'VI': 'minb6',
+    },
+    '6/9': {
+        'I': '6/9',
+        'II': 'min6/9',
+        'IV': '6/9',
+        'V': '6/9',
+    },
+    'sus2/4': {
+        'I': 'sus4add9',
+        'II': 'sus4add9',
+        'V': 'sus4add9',
+        'VI': 'sus4add9',
     },
 }
 

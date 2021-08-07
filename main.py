@@ -10,7 +10,7 @@ from guitarpractice.formatters import to_vextab
 from guitarpractice.shapes.chord import list_movable_chord_shapes, list_open_chords
 
 from exercises import fretboard_diagrams, note_finder, note_finder_variations, note_on_each_string, make_diagram
-from tone_chords import list_chord_shapes, build_tone_chords
+from diatonic_chords import list_chord_shapes, build_tone_chords
 
 router = web.RouteTableDef()
 
@@ -96,9 +96,9 @@ async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
     }
 
 
-@router.get('/scale-tone-chords/')
-@aiohttp_jinja2.template("scale_tone_chords.html")
-async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
+@router.get('/diatonic-chords/')
+@aiohttp_jinja2.template("diatonic_chords.html")
+async def diatonic_chords_view(request: web.Request) -> Dict[str, Any]:
     key = request.query.get('key', 'C')
     scale = request.query.get('scale', 'major')
     shape_notes = request.query.get('shape-notes', 'false')

@@ -88,9 +88,12 @@ async def note_finder_view(request: web.Request) -> Dict[str, Any]:
 @aiohttp_jinja2.template("note_on_each_string.html")
 async def note_on_each_string_view(request: web.Request) -> Dict[str, Any]:
     sharps = request.query.get('sharps', 'false')
-    include_sharps = sharps != 'false'
+    flats = request.query.get('flats', 'false')
 
-    notes = note_on_each_string(include_sharps)
+    include_sharps = sharps != 'false'
+    include_flats = flats != 'false'
+
+    notes = note_on_each_string(include_sharps, include_flats)
     return {
         'notes': notes,
     }

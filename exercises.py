@@ -91,10 +91,13 @@ def note_finder(strings, qty, sharps):
     return notes
 
 
-def note_on_each_string(sharps):
+def note_on_each_string(sharps, flats):
     note_choices = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     if sharps:
         note_choices.extend(['A#', 'C#', 'D#', 'F#', 'G#'])
+
+    if flats:
+        note_choices.extend(['Ab', 'Bb', 'Db', 'Eb', 'Gb'])
 
     random.shuffle(note_choices)
 

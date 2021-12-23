@@ -37,6 +37,7 @@ tone_chords = {
         'III': 'sus4',
         'V': 'sus4',
         'VI': 'sus4',
+        'VII': 'sus4b5'
     },
     'add9': {
         'I': 'add9',
@@ -51,6 +52,7 @@ tone_chords = {
         'II': 'madd11',
         'III': 'madd11',
         'VI': 'madd11',
+        'VII': 'dimadd11',
     },
     'ninth': {
         'I': 'maj9',
@@ -77,6 +79,7 @@ tone_chords = {
         'III': '7sus4',
         'V': '7sus4',
         'VI': '7sus4',
+        'VII': '7sus4b5',
     },
     'sixth': {
         'I': '6',

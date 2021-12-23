@@ -197,3 +197,25 @@ def scale_notes(key, scale):
     ]
 
     return note_names
+
+
+def generate_csv():
+    import csv
+
+    intervals = list(tone_chords.get('major').keys())
+    tonalities = list(tone_chords.keys())
+
+    rows = []
+    for interval in intervals:
+        row = [interval]
+        for tonality in tonalities:
+            chord = tone_chords.get(tonality).get(interval, "-")
+            row.append(chord)
+        rows.append(row)
+
+    header = [""] + tonalities
+
+    with open('tone_chords.csv', 'w+') as csv_file:
+        csv_write = csv.writer(csv_file)
+        csv_write.writerow(header)
+        csv_write.writerows(rows)
